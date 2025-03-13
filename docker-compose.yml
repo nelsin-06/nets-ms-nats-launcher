@@ -13,7 +13,7 @@ services:
   client-gateway:
     build: ./client-gateway
     ports:
-      - ${PORT_CLIENT_GATEWAY_HOST}:3000
+      - 8080:3000
     volumes:
       - ./client-gateway/src:/usr/src/app/src
     command: npm run start:dev
@@ -70,3 +70,14 @@ services:
       - NATS_SERVERS=nats://nats-server:4222
     ports:
       - 3003:3003
+
+  auth-ms: 
+    build: ./auth-mss
+    volumes:
+      - ./auth-mss/src:/usr/src/app/src
+    command: npm run start:dev
+    environment:
+      - PORT=3010
+      - NATS_SERVERS=nats://nats-server:4222
+      - DATABASE_MONGO_URL=${DATABASE_MONGO_URL}
+      
