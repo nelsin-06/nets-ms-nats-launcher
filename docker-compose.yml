@@ -1,4 +1,4 @@
-version: '3.8'
+#version: '3.8'
 
 services:
 # en la red interna de docker cada imagen se corre en un contenedors. 
@@ -20,56 +20,56 @@ services:
     environment:
       - NATS_SERVERS=nats://nats-server:4222
   
-  products-ms:
-    build: ./products-ms
-    volumes:
-      - ./products-ms/src:/usr/src/app/src
-    command: npm run start:dev
-    environment:
-# por ejemplo aqui se reemplaza la ruta "localhost:4222" por "nats-server:4222" ya que si se apunta a localhost intentaria conectarse a su mismo contenedor y 
-# en el contenedor solo esta el servicio de client-gateway
-      - NATS_SERVERS=nats://nats-server:4222
-      - PORT=3001
+#   products-ms:
+#     build: ./products-ms
+#     volumes:
+#       - ./products-ms/src:/usr/src/app/src
+#     command: npm run start:dev
+#     environment:
+# # por ejemplo aqui se reemplaza la ruta "localhost:4222" por "nats-server:4222" ya que si se apunta a localhost intentaria conectarse a su mismo contenedor y 
+# # en el contenedor solo esta el servicio de client-gateway
+#       - NATS_SERVERS=nats://nats-server:4222
+#       - PORT=3001
 
-  orders-ms: 
-    depends_on:
-      - orders-database
-    build: ./orders-ms
-    volumes:
-      - ./orders-ms/src:/usr/src/app/src
-    command: npm run start:dev
-    environment:
-      - PORT=3000
-      - DATABASE_URL=postgresql://postgres:123456@orders-database:5432/ordersdb?schema=public
-      - NATS_SERVERS=nats://nats-server:4222
+  # orders-ms: 
+  #   depends_on:
+  #     - orders-database
+  #   build: ./orders-ms
+  #   volumes:
+  #     - ./orders-ms/src:/usr/src/app/src
+  #   command: npm run start:dev
+  #   environment:
+  #     - PORT=3000
+  #     - DATABASE_URL=postgresql://postgres:123456@orders-database:5432/ordersdb?schema=public
+  #     - NATS_SERVERS=nats://nats-server:4222
 
-  orders-database:
-    container_name: orders-database
-    image: postgres:16.2
-    restart: always
-    volumes:
-      - ./orders-ms/postgres:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=123456
-      - POSTGRES_DB=ordersdb
-    ports:
-      - 54322:5432
+  # orders-database:
+  #   container_name: orders-database
+  #   image: postgres:16.2
+  #   restart: always
+  #   volumes:
+  #     - ./orders-ms/postgres:/var/lib/postgresql/data
+  #   environment:
+  #     - POSTGRES_USER=postgres
+  #     - POSTGRES_PASSWORD=123456
+  #     - POSTGRES_DB=ordersdb
+  #   ports:
+  #     - 54322:5432
 
-  payments-ms: 
-    build: ./payments-s
-    volumes:
-      - ./payments-s/src:/usr/src/app/src
-    command: npm run start:dev
-    environment:
-      - PORT=3003
-      - STRIPE_SECRET=sk_test_51QNIMWKXbIeI2IMFqGQbynsmclCrL5Lj5MdZGP2Kol7kpCzoV75BaeyiX6jKfgbx0NG5symFCntnXu5hFoibUAXX00is4U6tYh
-      - STRIPE_SUCCESS_URL=http://localhost:3003/payments/success
-      - STRIPE_CANCEL_URL=http://localhost:3003/payments/cancel
-      - STRIPE_SIGNING_WEBHOOK_ENDPOINT=whsec_XxenJGfvSealLP7PesGjCYiqt0yEuZfB
-      - NATS_SERVERS=nats://nats-server:4222
-    ports:
-      - 3003:3003
+  # payments-ms: 
+  #   build: ./payments-s
+  #   volumes:
+  #     - ./payments-s/src:/usr/src/app/src
+  #   command: npm run start:dev
+  #   environment:
+  #     - PORT=3003
+  #     - STRIPE_SECRET=sk_test_51QNIMWKXbIeI2IMFqGQbynsmclCrL5Lj5MdZGP2Kol7kpCzoV75BaeyiX6jKfgbx0NG5symFCntnXu5hFoibUAXX00is4U6tYh
+  #     - STRIPE_SUCCESS_URL=http://localhost:3003/payments/success
+  #     - STRIPE_CANCEL_URL=http://localhost:3003/payments/cancel
+  #     - STRIPE_SIGNING_WEBHOOK_ENDPOINT=whsec_XxenJGfvSealLP7PesGjCYiqt0yEuZfB
+  #     - NATS_SERVERS=nats://nats-server:4222
+  #   ports:
+  #     - 3003:3003
 
   auth-ms: 
     build: ./auth-mss
@@ -80,4 +80,5 @@ services:
       - PORT=3010
       - NATS_SERVERS=nats://nats-server:4222
       - DATABASE_MONGO_URL=${DATABASE_MONGO_URL}
+      - JWT_SECRET=${JWT_SECRET}
       

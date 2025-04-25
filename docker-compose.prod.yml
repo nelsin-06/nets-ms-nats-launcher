@@ -1,0 +1,71 @@
+#version: '3.8'
+
+services:
+# en la red interna de docker cada imagen se corre en un contenedors. 
+
+# en las redes internas de docker cada contenedor se identifica con el nombre asignado en el docker-compose.yml
+# esto crea un tipo de dominio interno en la red de dockers con el que se puede comunicar. Localhost queda inutil aqui si es que se quiere comunicar con otro ms
+  nats-server: 
+    image: nats:latest
+
+  client-gateway:
+    build:
+      context: ./client-gateway
+      dockerfile: dockerfile.prod
+    image: client-gateway-prod
+    ports:
+      - ${PORT_CLIENT_GATEWAY_HOST}:${PORT_CLIENT_GATEWAY_HOST}
+    environment:
+      - NATS_SERVERS=nats://nats-server:4222
+      - PORT=8080
+  
+  products-ms:
+    build:
+      context: ./products-ms
+      dockerfile: dockerfile.prod
+    image: products-ms-prod
+    environment:
+# por ejemplo aqui se reemplaza la ruta "localhost:4222" por "nats-server:4222" ya que si se apunta a localhost intentaria conectarse a su mismo contenedor y 
+# en el contenedor solo esta el servicio de client-gateway
+      - NATS_SERVERS=nats://nats-server:4222
+      - PORT=3000
+      - DATABASE_URL=file:./dev.db
+
+  orders-ms: 
+    build:
+      context: ./orders-ms
+      dockerfile: dockerfile.prod
+      args:
+        - ORDERS_DATABASE_URL_BUILD=postgresql://neondb_owner:npg_jiNHvQdS85Xq@ep-empty-field-a4p8bwap-pooler.us-east-1.aws.neon.tech/ordersdb?sslmode=require
+    image: orders-ms-prod
+    environment:
+      - PORT=3000
+      - DATABASE_URL=postgresql://neondb_owner:npg_jiNHvQdS85Xq@ep-empty-field-a4p8bwap-pooler.us-east-1.aws.neon.tech/ordersdb?sslmode=require
+      - NATS_SERVERS=nats://nats-server:4222
+
+  payments-ms: 
+    build: 
+      context: ./payments-s
+      dockerfile: dockerfile.prod
+    image: payments-ms-prod
+    environment:
+      - PORT=3000
+      - STRIPE_SECRET=sk_test_51QNIMWKXbIeI2IMFqGQbynsmclCrL5Lj5MdZGP2Kol7kpCzoV75BaeyiX6jKfgbx0NG5symFCntnXu5hFoibUAXX00is4U6tYh
+      - STRIPE_SUCCESS_URL=http://localhost:3003/payments/success
+      - STRIPE_CANCEL_URL=http://localhost:3003/payments/cancel
+      - STRIPE_SIGNING_WEBHOOK_ENDPOINT=whsec_XxenJGfvSealLP7PesGjCYiqt0yEuZfB
+      - NATS_SERVERS=nats://nats-server:4222
+    ports:
+      - 3000:3000
+
+  auth-ms: 
+    build:
+      context: ./auth-mss
+      dockerfile: dockerfile.prod
+    image: auth-ms-prod
+    environment:
+      - PORT=3000
+      - NATS_SERVERS=nats://nats-server:4222
+      - DATABASE_MONGO_URL=${DATABASE_MONGO_URL}
+      - JWT_SECRET=${JWT_SECRET}
+      
