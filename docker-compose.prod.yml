@@ -50,10 +50,10 @@ services:
     image: payments-ms-prod
     environment:
       - PORT=3000
-      - STRIPE_SECRET=sk_test_51QNIMWKXbIeI2IMFqGQbynsmclCrL5Lj5MdZGP2Kol7kpCzoV75BaeyiX6jKfgbx0NG5symFCntnXu5hFoibUAXX00is4U6tYh
+      - STRIPE_SECRET=${STRIPE_SECRET}
       - STRIPE_SUCCESS_URL=http://localhost:3003/payments/success
       - STRIPE_CANCEL_URL=http://localhost:3003/payments/cancel
-      - STRIPE_SIGNING_WEBHOOK_ENDPOINT=whsec_XxenJGfvSealLP7PesGjCYiqt0yEuZfB
+      - STRIPE_SIGNING_WEBHOOK_ENDPOINT=${STRIPE_SIGNING_WEBHOOK_ENDPOINT}
       - NATS_SERVERS=nats://nats-server:4222
     ports:
       - 3000:3000
