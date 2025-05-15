@@ -12,7 +12,7 @@ services:
     build:
       context: ./client-gateway
       dockerfile: dockerfile.prod
-    image: client-gateway-prod
+    image: southamerica-east1-docker.pkg.dev/microservices-nats-nest/images-register-docker/client-gateway-prod
     ports:
       - ${PORT_CLIENT_GATEWAY_HOST}:${PORT_CLIENT_GATEWAY_HOST}
     environment:
@@ -23,7 +23,7 @@ services:
     build:
       context: ./products-ms
       dockerfile: dockerfile.prod
-    image: products-ms-prod
+    image: southamerica-east1-docker.pkg.dev/microservices-nats-nest/images-register-docker/products-ms-prod
     environment:
 # por ejemplo aqui se reemplaza la ruta "localhost:4222" por "nats-server:4222" ya que si se apunta a localhost intentaria conectarse a su mismo contenedor y 
 # en el contenedor solo esta el servicio de client-gateway
@@ -37,7 +37,7 @@ services:
       dockerfile: dockerfile.prod
       args:
         - ORDERS_DATABASE_URL_BUILD=postgresql://neondb_owner:npg_jiNHvQdS85Xq@ep-empty-field-a4p8bwap-pooler.us-east-1.aws.neon.tech/ordersdb?sslmode=require
-    image: orders-ms-prod
+    image: southamerica-east1-docker.pkg.dev/microservices-nats-nest/images-register-docker/orders-ms-prod
     environment:
       - PORT=3000
       - DATABASE_URL=postgresql://neondb_owner:npg_jiNHvQdS85Xq@ep-empty-field-a4p8bwap-pooler.us-east-1.aws.neon.tech/ordersdb?sslmode=require
@@ -47,7 +47,7 @@ services:
     build: 
       context: ./payments-s
       dockerfile: dockerfile.prod
-    image: payments-ms-prod
+    image: southamerica-east1-docker.pkg.dev/microservices-nats-nest/images-register-docker/payments-ms-prod
     environment:
       - PORT=3000
       - STRIPE_SECRET=${STRIPE_SECRET}
@@ -62,7 +62,7 @@ services:
     build:
       context: ./auth-mss
       dockerfile: dockerfile.prod
-    image: auth-ms-prod
+    image: southamerica-east1-docker.pkg.dev/microservices-nats-nest/images-register-docker/auth-ms-prod
     environment:
       - PORT=3000
       - NATS_SERVERS=nats://nats-server:4222
