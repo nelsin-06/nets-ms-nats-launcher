@@ -12,7 +12,7 @@ spec:
     protocol: TCP
     targetPort: 3000
   selector:
-    app: client-gateway
+    app: client-gateway # esta parte del service indica hacia que carpeta/pod apunta esta configuracion de puerto
   type: NodePort
 status:
   loadBalancer: {}

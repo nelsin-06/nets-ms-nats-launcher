@@ -3,27 +3,32 @@ kind: Deployment
 metadata:
   creationTimestamp: null
   labels:
-    app: client-gateway
-  name: client-gateway
+    app: orders-ms
+  name: orders-ms
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: client-gateway
+      app: orders-ms
   strategy: {}
   template:
     metadata:
       creationTimestamp: null
       labels:
-        app: client-gateway
+        app: orders-ms
     spec:
       containers:
-      - image: southamerica-east1-docker.pkg.dev/microservices-nats-nest/images-register-docker/client-gateway-prod
-        name: client-gateway-prod
+      - image: southamerica-east1-docker.pkg.dev/microservices-nats-nest/images-register-docker/orders-ms-prod
+        name: orders-ms-prod
         env: 
           - name: PORT
             value: '3000'
           - name: NATS_SERVERS
             value: nats://nats-server
+          - name: DATABASE_URL
+            valueFrom:
+              secretKeyRef: 
+                name: orders-ms-secrets
+                key: DATABASE_URL
         resources: {}
 status: {}

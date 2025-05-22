@@ -56,20 +56,20 @@ services:
   #   ports:
   #     - 54322:5432
 
-  # payments-ms: 
-  #   build: ./payments-s
-  #   volumes:
-  #     - ./payments-s/src:/usr/src/app/src
-  #   command: npm run start:dev
-  #   environment:
-  #     - PORT=3003
-  #    - STRIPE_SECRET=${STRIPE_SECRET}
-  #    - STRIPE_SUCCESS_URL=http://localhost:3003/payments/success
-  #    - STRIPE_CANCEL_URL=http://localhost:3003/payments/cancel
-  #    - STRIPE_SIGNING_WEBHOOK_ENDPOINT=${STRIPE_SIGNING_WEBHOOK_ENDPOINT}
-  #    - NATS_SERVERS=nats://nats-server:4222
-  #   ports:
-  #     - 3003:3003
+  payments-ms: 
+    build: ./payments-s
+    volumes:
+      - ./payments-s/src:/usr/src/app/src
+    command: npm run start:dev
+    environment:
+      - PORT=3003
+      - STRIPE_SECRET=${STRIPE_SECRET}
+      - STRIPE_SUCCESS_URL=http://localhost:3003/payments/success
+      - STRIPE_CANCEL_URL=http://localhost:3003/payments/cancel
+      - STRIPE_SIGNING_WEBHOOK_ENDPOINT=${STRIPE_SIGNING_WEBHOOK_ENDPOINT}
+      - NATS_SERVERS=nats://nats-server:4222
+    ports:
+      - 3003:3003
 
   auth-ms: 
     build: ./auth-mss

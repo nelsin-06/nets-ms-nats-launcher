@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: prisma-db-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce  # Solo un pod puede escribir al mismo tiempo
+  resources:
+    requests:
+      storage: 1Gi  # espacio solicitado

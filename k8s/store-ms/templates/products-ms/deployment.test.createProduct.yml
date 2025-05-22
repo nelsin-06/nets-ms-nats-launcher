@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: products-ms
+  labels:
+    app: products-ms
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: products-ms
+  template:
+    metadata:
+      labels:
+        app: products-ms
+    spec:
+      volumes:
+        - name: prisma-storage
+          persistentVolumeClaim:
+            claimName: prisma-db-pvc
+      initContainers:
+        - name: copy-db
+          image: southamerica-east1-docker.pkg.dev/microservices-nats-nest/images-register-docker/products-ms-prod
+          command:
+            - sh
+            - -c
+            - >
+              if [ ! -f /usr/src/app/prisma/dev.db ]; then
+                cp /app/dev.db /usr/src/app/prisma/dev.db &&
+                chmod 666 /usr/src/app/prisma/dev.db;
+              fi
+          volumeMounts:
+            - name: prisma-storage
+              mountPath: /usr/src/app/prisma
+      containers:
+        - name: products-ms-prod
+          image: southamerica-east1-docker.pkg.dev/microservices-nats-nest/images-register-docker/products-ms-prod
+          env:
+            - name: PORT
+              value: '3000'
+            - name: NATS_SERVERS
+              value: nats://nats-server
+            - name: DATABASE_URL
+              value: 'file:/usr/src/app/prisma/dev.db'
+          volumeMounts:
+            - name: prisma-storage
+              mountPath: /usr/src/app/prisma
+status: {}
