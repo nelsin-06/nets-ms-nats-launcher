@@ -26,9 +26,9 @@ spec:
           - name: NATS_SERVERS
             value: nats://nats-server
           - name: STRIPE_SUCCESS_URL
-            value: http://localhost:3003/payments/success
+            value: http://localhost:3000/payments/success
           - name: STRIPE_CANCEL_URL
-            value: http://localhost:3003/payments/cancel
+            value: http://localhost:3000/payments/cancel
           - name: STRIPE_SECRET
             valueFrom:
               secretKeyRef:
@@ -39,5 +39,11 @@ spec:
               secretKeyRef: 
                 name: payments-ms-secrets
                 key: STRIPE_SIGNING_WEBHOOK_ENDPOINT
-        resources: {}
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
 status: {}

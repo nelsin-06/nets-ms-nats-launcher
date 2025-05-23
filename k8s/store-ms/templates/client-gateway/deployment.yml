@@ -25,5 +25,11 @@ spec:
             value: '3000'
           - name: NATS_SERVERS
             value: nats://nats-server
-        resources: {}
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
 status: {}

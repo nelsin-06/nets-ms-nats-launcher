@@ -71,14 +71,14 @@ services:
     ports:
       - 3003:3003
 
-  auth-ms: 
-    build: ./auth-mss
-    volumes:
-      - ./auth-mss/src:/usr/src/app/src
-    command: npm run start:dev
-    environment:
-      - PORT=3010
-      - NATS_SERVERS=nats://nats-server:4222
-      - DATABASE_MONGO_URL=${DATABASE_MONGO_URL}
-      - JWT_SECRET=${JWT_SECRET}
+  # auth-ms: 
+  #   build: ./auth-mss
+  #   volumes:
+  #     - ./auth-mss/src:/usr/src/app/src
+  #   command: npm run start:dev
+  #   environment:
+  #     - PORT=3010
+  #     - NATS_SERVERS=nats://nats-server:4222
+  #     - DATABASE_MONGO_URL=${DATABASE_MONGO_URL}
+  #     - JWT_SECRET=${JWT_SECRET}
       

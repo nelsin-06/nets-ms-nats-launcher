@@ -79,4 +79,19 @@ kubectl get secret <nombre> -o yaml > <nombre>.yml
 ```
 kubectl create -f <nombre>.yml
 ```
+como kubectl y k8s funciona con archivos yml y etiquetas internas que indican que tipo de archivo es (deployment, secret, service) cuando se ejecute
+el comando anterior el mismo kubectl detecta que tipo de archivo es segun su etiqueda de nombrado interna y lo integra al ecosistema.
 
+## configuracion/conexion kubernetes google cloud
+
+* Para ver contextos de mis cluster configurados (si se quiere trabajar en docker-desktop o sobre un cluster en la nube)
+
+```
+kubectl config get-contexts
+```
+
+* Para cambiar de contexto (si se quiere trabajar en docker-desktop o sobre un cluster en la nube)
+
+```
+kubectl config use-context <cluster_name>
+```

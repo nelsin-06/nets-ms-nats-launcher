@@ -30,5 +30,11 @@ spec:
               secretKeyRef: 
                 name: orders-ms-secrets
                 key: DATABASE_URL
-        resources: {}
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
 status: {}
