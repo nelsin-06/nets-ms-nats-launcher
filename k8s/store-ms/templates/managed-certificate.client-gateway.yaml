@@ -1,0 +1,8 @@
+apiVersion: networking.gke.io/v1
+kind: ManagedCertificate
+metadata:
+  name: api-ssl-cert-gateway
+  namespace: default
+spec:
+  domains:
+    - store.ms.34.8.73.132.nip.io

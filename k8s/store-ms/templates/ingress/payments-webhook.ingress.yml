@@ -1,0 +1,30 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: payments-webhook-ingress
+  annotations:
+    networking.gke.io/managed-certificates: api-ssl-cert-payments  # ← NUEVO
+    kubernetes.io/ingress.class: "gce"
+    # kubernetes.io/ingress.global-static-ip-name: "tu-ip-name"  # Si = solo si tengo ip reservada google cloud
+spec:
+  rules:
+  - host: store.ms.34.117.250.212.nip.io
+    http:
+      paths:
+      - path: /*
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: payments-webhook
+            port:
+              number: 3000  # O el puerto que uses
+  # Si quieres mantener acceso por IP también:
+  - http:
+      paths:
+      - path: /*
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: payments-webhook
+            port:
+              number: 3000

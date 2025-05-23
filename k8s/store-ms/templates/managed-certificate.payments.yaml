@@ -1,0 +1,8 @@
+apiVersion: networking.gke.io/v1
+kind: ManagedCertificate
+metadata:
+  name: api-ssl-cert-payments
+  namespace: default
+spec:
+  domains:
+    - store.ms.34.117.250.212.nip.io
