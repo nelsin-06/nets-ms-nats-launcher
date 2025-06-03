@@ -4,9 +4,9 @@ A store application built with microservices architecture using NestJS, NATS as 
 
 ## 🚀 Quick Start - API Testing
 
-Test our API endpoints using the Postman collection. Choose your preferred option:
+Test our API endpoints using the Postman collection. Choose your preferred option. **No matter which option is selected, you'll need to choose one environment when testing this API. We recommend selecting documentation_endpoint_production if you only want to test our API. However, if you are running the API locally, select documentation_endpoint_develop**:
 
-### Fork Collection (Recommended)
+### Fork Collection
 Import the collection directly into your Postman workspace with pre-configured environment variables:
 
 [<img src="https://run.pstmn.io/button.svg" alt="Run In Postman" style="width: 128px; height: 32px;">](https://god.gw.postman.com/run-collection/22972674-1f275a2d-a95f-4172-98d3-7e760552968c?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D22972674-1f275a2d-a95f-4172-98d3-7e760552968c%26entityType%3Dcollection%26workspaceId%3D460997b1-e9ef-42f7-861d-9f7ba852ab55#?env%5Bdocumentation_endpoint_production%5D=W3sia2V5IjoidXJsIiwidmFsdWUiOiJodHRwczovL3N0b3JlLm1zLjM0LjguNzMuMTMyLm5pcC5pby9hcGkiLCJlbmFibGVkIjp0cnVlLCJ0eXBlIjoiZGVmYXVsdCJ9LHsia2V5IjoicHJvZHVjdElkIiwidmFsdWUiOiIxNCIsImVuYWJsZWQiOnRydWUsInR5cGUiOiJkZWZhdWx0In0seyJrZXkiOiJvcmRlcklkIiwidmFsdWUiOiIzODIzNjk2Ny0wOWYzLTRhOTgtYTgyMi1mMjZlMjhlODI3NjciLCJlbmFibGVkIjp0cnVlLCJ0eXBlIjoiZGVmYXVsdCJ9LHsia2V5Ijoic3RhdHVzT3JkZXIiLCJ2YWx1ZSI6IkRFTElWRVJFRCIsImVuYWJsZWQiOnRydWUsInR5cGUiOiJkZWZhdWx0In0seyJrZXkiOiJ0b2tlbiIsInZhbHVlIjoiPEpTT05fV0VCX1RPS0VOPiIsImVuYWJsZWQiOnRydWUsInR5cGUiOiJhbnkifSx7ImtleSI6InVybF93ZWJob29rX3BheW1lbnQiLCJ2YWx1ZSI6InN0b3JlLm1zLjM0LjExNy4yNTAuMjEyLm5pcC5pbyIsImVuYWJsZWQiOnRydWUsInR5cGUiOiJkZWZhdWx0In0seyJrZXkiOiJ1cmxfd2ViaG9va19jbGllbnQiLCJ2YWx1ZSI6InN0b3JlLm1zLjM0LjguNzMuMTMyLm5pcC5pbyIsImVuYWJsZWQiOnRydWUsInR5cGUiOiJkZWZhdWx0In1d)
