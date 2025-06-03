@@ -1,6 +1,20 @@
 # Microservices Store
 
-Una aplicación de tienda construida con arquitectura de microservicios usando NestJS, NATS como message broker y Docker para orquestación. El proyecto está dividido en múltiples microservicios independientes que se comunican a través de mensajería asíncrona.
+A store application built with microservices architecture using NestJS, NATS as message broker, and Docker for orchestration. The project is divided into multiple independent microservices that communicate through asynchronous messaging.
+
+## 🚀 Quick Start - API Testing
+
+Test our API endpoints using the Postman collection. Choose your preferred option:
+
+### Fork Collection (Recommended)
+Import the collection directly into your Postman workspace with pre-configured environment variables:
+
+[<img src="https://run.pstmn.io/button.svg" alt="Run In Postman" style="width: 128px; height: 32px;">](https://god.gw.postman.com/run-collection/22972674-1f275a2d-a95f-4172-98d3-7e760552968c?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D22972674-1f275a2d-a95f-4172-98d3-7e760552968c%26entityType%3Dcollection%26workspaceId%3D460997b1-e9ef-42f7-861d-9f7ba852ab55#?env%5Bdocumentation_endpoint_production%5D=W3sia2V5IjoidXJsIiwidmFsdWUiOiJodHRwczovL3N0b3JlLm1zLjM0LjguNzMuMTMyLm5pcC5pby9hcGkiLCJlbmFibGVkIjp0cnVlLCJ0eXBlIjoiZGVmYXVsdCJ9LHsia2V5IjoicHJvZHVjdElkIiwidmFsdWUiOiIxNCIsImVuYWJsZWQiOnRydWUsInR5cGUiOiJkZWZhdWx0In0seyJrZXkiOiJvcmRlcklkIiwidmFsdWUiOiIzODIzNjk2Ny0wOWYzLTRhOTgtYTgyMi1mMjZlMjhlODI3NjciLCJlbmFibGVkIjp0cnVlLCJ0eXBlIjoiZGVmYXVsdCJ9LHsia2V5Ijoic3RhdHVzT3JkZXIiLCJ2YWx1ZSI6IkRFTElWRVJFRCIsImVuYWJsZWQiOnRydWUsInR5cGUiOiJkZWZhdWx0In0seyJrZXkiOiJ0b2tlbiIsInZhbHVlIjoiPEpTT05fV0VCX1RPS0VOPiIsImVuYWJsZWQiOnRydWUsInR5cGUiOiJhbnkifSx7ImtleSI6InVybF93ZWJob29rX3BheW1lbnQiLCJ2YWx1ZSI6InN0b3JlLm1zLjM0LjExNy4yNTAuMjEyLm5pcC5pbyIsImVuYWJsZWQiOnRydWUsInR5cGUiOiJkZWZhdWx0In0seyJrZXkiOiJ1cmxfd2ViaG9va19jbGllbnQiLCJ2YWx1ZSI6InN0b3JlLm1zLjM0LjguNzMuMTMyLm5pcC5pbyIsImVuYWJsZWQiOnRydWUsInR5cGUiOiJkZWZhdWx0In1d)
+
+### View Collection Online
+Browse the collection documentation and endpoints directly in your browser:
+
+[<img src="https://img.shields.io/badge/View%20in-Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white" alt="View In Postman">](https://www.postman.com/dark-equinox-132990/nest/collection/pmibtaz/store-ms)
 
 ## Arquitectura del Proyecto
 
