@@ -4,7 +4,10 @@ A store application built with microservices architecture using NestJS, NATS as 
 
 ## 🚀 Quick Start - API Testing
 
-Test our API endpoints using the Postman collection. Choose your preferred option. **No matter which option is selected, you'll need to choose one environment when testing this API. We recommend selecting documentation_endpoint_production if you only want to test our API. However, if you are running the API locally, select documentation_endpoint_develop**:
+Test our API endpoints using the Postman collection. Choose your preferred option. 
+
+
+:warning: **No matter which option is selected, you'll need to choose one environment when testing this API. We recommend selecting documentation_endpoint_production if you only want to test our API. However, if you are running the API locally, select documentation_endpoint_develop**:
 
 ### Fork Collection
 Import the collection directly into your Postman workspace with pre-configured environment variables:
@@ -35,11 +38,13 @@ git clone https://github.com/nelsin-06/nets-ms-nats-launcher.git
 cd nets-ms-nats-launcher
 ```
 
+
 ### 2. Descargar Submódulos
 
 ```bash
 git submodule update --init --recursive
 ```
+
 
 ### 3. Configurar Variables de Entorno
 
@@ -49,6 +54,7 @@ Crea un archivo `.env` basado en `.env.template`:
 cp .env.template .env
 ```
 
+
 **Variables requeridas:**
 - `PORT_CLIENT_GATEWAY_HOST`: Puerto del gateway (por defecto: 8080)
 - `DATABASE_MONGO_URL`: URL de conexión a MongoDB para auth-ms
@@ -56,18 +62,19 @@ cp .env.template .env
 - `STRIPE_SIGNING_WEBHOOK_ENDPOINT`: Endpoint de webhook de Stripe
 - `JWT_SECRET`: Secreto para tokens JWT
 
-## Ejecución del Proyecto
+## Project Execution (use the production option if you want to run the project using the Docker image from the cloud)
 
-### Desarrollo con Docker Compose
-
-```bash
-docker compose up --build
-```
 
 ### Producción
 
 ```bash
 docker compose -f docker-compose.prod.yml up --build
+```
+
+### Desarrollo con Docker Compose
+
+```bash
+docker compose up --build
 ```
 
 **Nota:** En desarrollo, algunos microservicios están comentados en el docker-compose.yml para facilitar el desarrollo individual.
@@ -108,8 +115,11 @@ kubectl create secret generic payments-ms-secrets \
   --from-literal=STRIPE_SIGNING_WEBHOOK_ENDPOINT="<webhook-endpoint>"
 ```
 
-2. **Configurar acceso a Google Container Registry:**
+2. **Configure Google Container Registry access (Production only):**
+> **Note**: This step is only required for production deployment with private container registry access. Skip this if you're testing locally or don't have access to the private registry.
+
 ```bash
+# Only for production with private registry access
 kubectl create secret docker-registry gcr-json-key \
   --docker-server=southamerica-east1-docker.pkg.dev \
   --docker-username=_json_key \
