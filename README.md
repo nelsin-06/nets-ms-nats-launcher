@@ -17,8 +17,8 @@ Este repositorio principal contiene la configuración de orquestación para todo
 ### 1. Clonar el Repositorio
 
 ```bash
-git clone <repository-url>
-cd <repository-name>
+git clone https://github.com/nelsin-06/nets-ms-nats-launcher.git
+cd nets-ms-nats-launcher
 ```
 
 ### 2. Descargar Submódulos
