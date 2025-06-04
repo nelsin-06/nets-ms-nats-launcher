@@ -3,6 +3,12 @@ kind: ManagedCertificate
 metadata:
   name: api-ssl-cert-gateway
   namespace: default
+  annotations:
+    app.kubernetes.io/managed-by: Helm
+    meta.helm.sh/release-name: store-ms
+    meta.helm.sh/release-namespace: default
+  labels:
+    app.kubernetes.io/managed-by: Helm
 spec:
   domains:
     - store.ms.34.8.73.132.nip.io
