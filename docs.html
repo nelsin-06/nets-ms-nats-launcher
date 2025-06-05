@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Store MS Architecture</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+    <h1>Store MS - Interactive Architecture</h1>
+    
+    <div class="mermaid">
+        flowchart TD
+    %% Development Phase
+    Dev["👨‍💻 Desarrollo Local"] --> Git["🔄 Git Push a main"]
+    
+    %% GitHub Repositories Structure
+    subgraph GITHUB_ORG["🏢 nest-microservices-nel"]
+        GH1["📁 client-gateway<br/>🌐 API Gateway"]
+        GH2["📁 auth-ms<br/>🔐 Authentication"]
+        GH3["📁 payments-s<br/>💳 Payments"]
+        GH4["📁 order-ms<br/>🛒 Orders"]
+        GH5["📁 products-ms<br/>📦 Products"]
+    end
+    
+    subgraph MAIN_REPO["🏠 Main Repository"]
+        GH_MAIN["📁 nets-ms-nats-launcher<br/>🎯 Orchestration<br/>Git Submodules"]
+    end
+    
+    %% Cloud Build Triggers
+    subgraph TRIGGERS["⚡ Cloud Build Triggers"]
+        CB1["🔨 client-gateway-trigger"]
+        CB2["🔨 auth-ms-trigger"]
+        CB3["🔨 payments-s-trigger"]
+        CB4["🔨 order-ms-trigger"]
+        CB5["🔨 products-ms-trigger"]
+    end
+    
+    %% Docker Build Process
+    subgraph DOCKER_BUILD["🐳 Docker Build"]
+        D1["🏗️ client-gateway-prod<br/>dockerfile.prod"]
+        D2["🏗️ auth-ms-prod<br/>dockerfile.prod"]
+        D3["🏗️ payments-s-prod<br/>dockerfile.prod"]
+        D4["🏗️ order-ms-prod<br/>dockerfile.prod"]
+        D5["🏗️ products-ms-prod<br/>dockerfile.prod"]
+    end
+    
+    %% Artifact Registry
+    AR["🏪 Artifact Registry<br/>microservices-nats-nest<br/>images-register-docker"]
+    
+    %% Kubernetes Deployment
+    subgraph K8S_DEPLOY["☸️ Kubernetes GKE"]
+        HELM["⚙️ Helm Chart<br/>store-ms"]
+        
+        subgraph SECRETS["🔐 Secrets"]
+            SECRET1["🔑 auth-ms-secrets"]
+            SECRET2["🔑 orders-ms-secrets"]
+            SECRET3["🔑 payments-ms-secrets"]
+            SECRET4["🔑 gcr-json-key"]
+        end
+    end
+    
+    %% Kubernetes Resources
+    subgraph PODS["🚀 Kubernetes Pods"]
+        POD1["🔷 client-gateway<br/>Port: 3000<br/>512Mi-1Gi CPU: 250m-500m"]
+        POD2["🔷 auth-ms<br/>MongoDB + JWT"]
+        POD3["🔷 payments-s<br/>Stripe Integration"]
+        POD4["🔷 order-ms<br/>PostgreSQL"]
+        POD5["🔷 products-ms<br/>SQLite Database"]
+        POD6["🔷 NATS Server<br/>Port: 4222"]
+    end
+    
+    %% NATS Communication
+    subgraph NATS_COMM["📨 NATS Communication"]
+        NATS_SYNC["🔄 Request-Reply<br/>auth.validate<br/>products.findAll"]
+        NATS_ASYNC["⚡ Events<br/>order.created<br/>payment.completed"]
+    end
+    
+    %% Services
+    subgraph SERVICES["🔧 Services"]
+        SVC1["🌐 client-gateway"]
+        SVC2["🔐 auth-ms"]
+        SVC3["💳 payments-s"]
+        SVC4["🛒 order-ms"]
+        SVC5["📦 products-ms"]
+        SVC6["📨 nats-server"]
+    end
+    
+    %% Ingress Configuration
+    subgraph INGRESS_CONFIG["🌐 External Access"]
+        SSL["🔒 SSL Certificate<br/>api-ssl-cert-gateway"]
+        ING["🚪 Ingress Controller"]
+        EXT1["🌍 Gateway API<br/>store.ms.34.8.73.132.nip.io"]
+        EXT2["🔗 Payments Webhook"]
+    end
+    
+    %% External Services
+    subgraph EXTERNAL["🌍 External Services"]
+        STRIPE["💳 Stripe API"]
+        DATABASES["🗄️ Databases<br/>MongoDB, PostgreSQL"]
+    end
+    
+    %% Monitoring
+    subgraph MONITORING["📊 Monitoring"]
+        HEALTH["❤️ Health Checks"]
+        POSTMAN["📮 Postman Collection"]
+    end
+    
+    %% Flow Connections
+    Dev --> Git
+    Git --> GH_MAIN
+    Git --> GH1
+    Git --> GH2
+    Git --> GH3
+    Git --> GH4
+    Git --> GH5
+    
+    GH1 --> CB1
+    GH2 --> CB2
+    GH3 --> CB3
+    GH4 --> CB4
+    GH5 --> CB5
+    
+    CB1 --> D1
+    CB2 --> D2
+    CB3 --> D3
+    CB4 --> D4
+    CB5 --> D5
+    
+    D1 --> AR
+    D2 --> AR
+    D3 --> AR
+    D4 --> AR
+    D5 --> AR
+    
+    AR --> HELM
+    HELM --> SECRET1
+    HELM --> SECRET2
+    HELM --> SECRET3
+    HELM --> SECRET4
+    
+    HELM --> POD1
+    SECRET1 --> POD2
+    SECRET2 --> POD4
+    SECRET3 --> POD3
+    SECRET4 --> POD5
+    HELM --> POD6
+    
+    POD6 --> NATS_SYNC
+    POD6 --> NATS_ASYNC
+    NATS_SYNC --> POD1
+    NATS_ASYNC --> POD1
+    
+    POD1 --> SVC1
+    POD2 --> SVC2
+    POD3 --> SVC3
+    POD4 --> SVC4
+    POD5 --> SVC5
+    POD6 --> SVC6
+    
+    SVC1 --> ING
+    SVC3 --> ING
+    SSL --> ING
+    ING --> EXT1
+    ING --> EXT2
+    
+    EXT2 --> STRIPE
+    POD2 --> DATABASES
+    POD4 --> DATABASES
+    
+    POD1 --> HEALTH
+    EXT1 --> POSTMAN
+    
+    %% Styling
+    classDef gitRepo fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    classDef mainRepo fill:#e8eaf6,stroke:#3f51b5,stroke-width:3px
+    classDef cloudBuild fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    classDef docker fill:#e1f5fe,stroke:#0288d1,stroke-width:2px
+    classDef registry fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+    classDef k8s fill:#e8f5e8,stroke:#388e3c,stroke-width:2px
+    classDef pods fill:#e0f2f1,stroke:#00695c,stroke-width:2px
+    classDef nats fill:#e1f5fe,stroke:#0277bd,stroke-width:2px
+    classDef services fill:#f1f8e9,stroke:#558b2f,stroke-width:2px
+    classDef ingress fill:#fff8e1,stroke:#f9a825,stroke-width:2px
+    classDef external fill:#ffebee,stroke:#d32f2f,stroke-width:2px
+    classDef monitoring fill:#f3e5f5,stroke:#8e24aa,stroke-width:2px
+    
+    class GH1,GH2,GH3,GH4,GH5 gitRepo
+    class GH_MAIN mainRepo
+    class CB1,CB2,CB3,CB4,CB5 cloudBuild
+    class D1,D2,D3,D4,D5 docker
+    class AR registry
+    class HELM,SECRET1,SECRET2,SECRET3,SECRET4 k8s
+    class POD1,POD2,POD3,POD4,POD5,POD6 pods
+    class NATS_SYNC,NATS_ASYNC nats
+    class SVC1,SVC2,SVC3,SVC4,SVC5,SVC6 services
+    class SSL,ING,EXT1,EXT2 ingress
+    class STRIPE,DATABASES external
+    class HEALTH,POSTMAN monitoring
+    </div>
+    
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            themeVariables: {
+                primaryColor: '#fff',
+                primaryTextColor: '#000'
+            }
+        });
+    </script>
+</body>
+</html>
