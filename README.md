@@ -6,12 +6,6 @@ A store application built with microservices architecture using NestJS, NATS as 
 
 Test our API endpoints using the Postman collection. Choose your preferred option. 
 
-## 🏗️ Architecture Flow
-
-[![Store MS Architecture](https://img.shields.io/badge/View-Interactive_Diagram-blue?style=for-the-badge&logo=mermaid)](https://www.mermaidchart.com/app/projects/81245b59-1bcd-440e-9f38-4a6c604611a9/diagrams/5d07c0aa-247f-4ffe-be54-647218364dc0/version/v0.1/view)
-
-*Click to view the interactive architecture diagram*
-
 :warning: **No matter which option is selected, you'll need to choose one environment when testing this API. We recommend selecting documentation_endpoint_production if you only want to test our API. However, if you are running the API locally, select documentation_endpoint_develop**:
 
 ### Fork Collection
@@ -25,6 +19,19 @@ Browse the collection documentation and endpoints directly in your browser:
 [<img src="https://img.shields.io/badge/View%20in-Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white" alt="View In Postman">](https://www.postman.com/dark-equinox-132990/nest/collection/pmibtaz/store-ms)
 
 ## Arquitectura del Proyecto
+
+### 🏗️ Store MS - Architecture Flow
+
+[![Store MS Architecture Diagram](https://github.com/nelsin-06/nets-ms-nats-launcher/blob/main/diagram.png)](https://www.mermaidchart.com/app/projects/81245b59-1bcd-440e-9f38-4a6c604611a9/diagrams/5d07c0aa-247f-4ffe-be54-647218364dc0/version/v0.1/view)
+
+🔗 **[View Interactive Diagram](https://www.mermaidchart.com/app/projects/81245b59-1bcd-440e-9f38-4a6c604611a9/diagrams/5d07c0aa-247f-4ffe-be54-647218364dc0/version/v0.1/view)**
+
+### 📋 Architecture Overview
+- **5 Microservices** with independent deployment
+- **NATS** for async communication  
+- **Google Cloud** CI/CD pipeline
+- **Kubernetes** orchestration
+- **Zero-downtime** deployments
 
 Este repositorio principal contiene la configuración de orquestación para todos los microservicios de la tienda. Cada microservicio está almacenado en un repositorio separado dentro de la organización `nest-microservices-nel` y se incluye como git submodule:
 
