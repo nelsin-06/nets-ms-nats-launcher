@@ -6,6 +6,10 @@ A store application built with microservices architecture using NestJS, NATS as 
 
 Test our API endpoints using the Postman collection. Choose your preferred option. 
 
+## 🏗️ Interactive Architecture
+
+📊 [View Interactive Diagram](https://github.com/nelsin-06/nets-ms-nats-launcher/docs.html)
+
 
 :warning: **No matter which option is selected, you'll need to choose one environment when testing this API. We recommend selecting documentation_endpoint_production if you only want to test our API. However, if you are running the API locally, select documentation_endpoint_develop**:
 
