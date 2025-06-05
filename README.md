@@ -6,10 +6,11 @@ A store application built with microservices architecture using NestJS, NATS as 
 
 Test our API endpoints using the Postman collection. Choose your preferred option. 
 
-## 🏗️ Interactive Architecture
+## 🏗️ Architecture Flow
 
-📊 [View Interactive Diagram](https://github.com/nelsin-06/nets-ms-nats-launcher/docs.html)
+[![Store MS Architecture](https://img.shields.io/badge/View-Interactive_Diagram-blue?style=for-the-badge&logo=mermaid)](https://www.mermaidchart.com/app/projects/81245b59-1bcd-440e-9f38-4a6c604611a9/diagrams/5d07c0aa-247f-4ffe-be54-647218364dc0/version/v0.1/view)
 
+*Click to view the interactive architecture diagram*
 
 :warning: **No matter which option is selected, you'll need to choose one environment when testing this API. We recommend selecting documentation_endpoint_production if you only want to test our API. However, if you are running the API locally, select documentation_endpoint_develop**:
 
