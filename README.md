@@ -18,7 +18,7 @@ Browse the collection documentation and endpoints directly in your browser:
 
 [<img src="https://img.shields.io/badge/View%20in-Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white" alt="View In Postman">](https://www.postman.com/dark-equinox-132990/nest/collection/pmibtaz/store-ms)
 
-## Arquitectura del Proyecto
+## Project Architecture
 
 ### 🏗️ Store MS - Architecture Flow
 
@@ -33,17 +33,17 @@ Browse the collection documentation and endpoints directly in your browser:
 - **Kubernetes** orchestration
 - **Zero-downtime** deployments
 
-Este repositorio principal contiene la configuración de orquestación para todos los microservicios de la tienda. Cada microservicio está almacenado en un repositorio separado dentro de la organización `nest-microservices-nel` y se incluye como git submodule:
+This main repository contains the orchestration configuration for all store microservices. Each microservice is stored in a separate repository within the organization `nest-microservices-nel` and is included as a git submodule:
 
-- **client-gateway**: Gateway principal que expone las APIs REST
-- **products-ms**: Microservicio de gestión de productos
-- **orders-ms**: Microservicio de gestión de órdenes
-- **payments-s**: Microservicio de pagos (integración con Stripe)
-- **auth-mss**: Microservicio de autenticación y autorización
+- **client-gateway**: Main gateway that exposes REST APIs
+- **products-ms**: Product management microservice
+- **orders-ms**: Order management microservice
+- **payments-s**: Payment microservice (integrated with Stripe)
+- **auth-mss**: Authentication and authorization microservice
 
-## Instalación y Configuración
+## Installation and Configuration
 
-### 1. Clonar el Repositorio
+### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/nelsin-06/nets-ms-nats-launcher.git
@@ -51,14 +51,14 @@ cd nets-ms-nats-launcher
 ```
 
 
-### 2. Descargar Submódulos
+### 2. Download Submodules
 
 ```bash
 git submodule update --init --recursive
 ```
 
 
-### 3. Configurar Variables de Entorno
+### 3. Configure Environment Variables
 
 Crea un archivo `.env` basado en `.env.template`:
 
@@ -67,23 +67,23 @@ cp .env.template .env
 ```
 
 
-**Variables requeridas:**
-- `PORT_CLIENT_GATEWAY_HOST`: Puerto del gateway (por defecto: 8080)
-- `DATABASE_MONGO_URL`: URL de conexión a MongoDB para auth-ms
-- `STRIPE_SECRET`: Clave secreta de Stripe
-- `STRIPE_SIGNING_WEBHOOK_ENDPOINT`: Endpoint de webhook de Stripe
-- `JWT_SECRET`: Secreto para tokens JWT
+**Required variables:**
+- `PORT_CLIENT_GATEWAY_HOST`: Gateway port (default: 8080)
+- `DATABASE_MONGO_URL`: MongoDB connection URL for auth-ms
+- `STRIPE_SECRET`: Stripe secret key
+- `STRIPE_SIGNING_WEBHOOK_ENDPOINT`: Stripe webhook endpoint
+- `JWT_SECRET`: Secret for JWT tokens
 
 ## Project Execution (use the production option if you want to run the project using the Docker image from the cloud)
 
 
-### Producción
+### Production
 
 ```bash
 docker compose -f docker-compose.prod.yml up --build
 ```
 
-### Desarrollo con Docker Compose
+### Development with Docker Compose
 
 ```bash
 docker compose up --build
@@ -91,17 +91,17 @@ docker compose up --build
 
 **Nota:** En desarrollo, algunos microservicios están comentados en el docker-compose.yml para facilitar el desarrollo individual.
 
-## Configuración de Kubernetes
+## Kubernetes Configuration
 
 El proyecto incluye configuraciones completas para despliegue en Kubernetes usando Helm charts ubicadas en `k8s/store-ms/`.
 
-### Estructura de K8s
+### K8s Structure
 
 ```
 k8s/store-ms/
-├── Chart.yaml              # Configuración del Helm chart
-├── values.yaml             # Valores por defecto
-└── templates/              # Manifiestos de Kubernetes
+├── Chart.yaml              # Helm chart configuration
+├── values.yaml             # Default values
+└── templates/              # Kubernetes manifests
     ├── auth-ms/
     ├── client-gateway/
     ├── orders-ms/
@@ -111,9 +111,9 @@ k8s/store-ms/
     └── ingress/
 ```
 
-### Despliegue en Kubernetes
+### Deployment on Kubernetes
 
-1. **Crear secretos necesarios:**
+1. **Create required secrets:**
 ```bash
 kubectl create secret generic auth-ms-secrets \
   --from-literal=DATABASE_MONGO_URL="<mongo-url>" \
@@ -141,24 +141,24 @@ kubectl create secret docker-registry gcr-json-key \
 kubectl patch serviceaccounts default -p '{"imagePullSecrets": [{"name":"gcr-json-key"}]}'
 ```
 
-3. **Desplegar con Helm:**
+3. **Deploy with Helm:**
 ```bash
-# Instalación inicial
+# Initial installation
 helm install store-ms k8s/store-ms/
 
-# Actualizaciones
+# Updates
 helm upgrade store-ms k8s/store-ms/
 ```
 
-### Características de la Configuración K8s
+### K8s Configuration Features
 
-- **Ingress con SSL**: Certificados SSL automáticos para los dominios configurados
-- **Persistent Volumes**: Para persistencia de datos del products-ms (SQLite)
-- **Resource Limits**: Configuración de límites de CPU y memoria
-- **Health Checks**: Liveness y readiness probes configurados
-- **Secrets Management**: Variables sensibles manejadas como Kubernetes secrets
+- **Ingress with SSL**: Automatic SSL certificates for configured domains
+- **Persistent Volumes**: For products-ms data persistence (SQLite)
+- **Resource Limits**: CPU and memory limit configuration
+- **Health Checks**: Configured liveness and readiness probes
+- **Secrets Management**: Sensitive variables handled as Kubernetes secrets
 
-## Comandos Útiles
+## Useful Commands
 
 ### Git Submodules
 ```bash
@@ -171,24 +171,24 @@ git submodule update --remote <submodule-name>
 
 ### Kubernetes
 ```bash
-# Ver estado de pods
+# Check pod status
 kubectl get pods
 
-# Ver logs de un pod
+# View logs of a pod
 kubectl logs <pod-name>
 
-# Ver servicios
+# View services
 kubectl get services
 
-# Ver ingress
+# View ingress
 kubectl get ingress
 ```
 
-## Importante
+## Important
 
-Al trabajar con submódulos, siempre **actualiza y haz push primero en el submódulo** y **después en el repositorio principal**. Si se hace en orden inverso, se perderán las referencias de los submódulos.
+When working with submodules, always **update and push the submodule first** and **then the main repository**. If done in reverse order, submodule references will be lost.
 
-## URLs de Acceso
+## Access URLs
 
-- **Desarrollo**: http://localhost:8080
-- **Producción K8s**: Configurado via Ingress (ver archivos de ingress para URLs específicas)
+- **Development**: http://localhost:8080
+- **Production K8s**: Configured via Ingress (see ingress files for specific URLs)
