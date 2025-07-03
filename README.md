@@ -192,3 +192,9 @@ When working with submodules, always **update and push the submodule first** and
 
 - **Development**: http://localhost:8080
 - **Production K8s**: Configured via Ingress (see ingress files for specific URLs)
+
+## 🤝 Author
+
+**Nelson G.**  
+[GitHub](https://github.com/nelsin-06)  
+[LinkedIn](https://www.linkedin.com/in/nelson-gallego-tec-dev)
